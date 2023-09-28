@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"github.com/go-http-utils/headers"
 	"github.com/timur-pro/ueba-get-items/internal/models"
 	"log"
 	"net/http"
@@ -50,7 +51,7 @@ func (h *GetItemHandler) Get(w http.ResponseWriter, r *http.Request) {
 		}
 		result = append(result, record)
 	}
-
+	w.Header().Set(headers.ContentType, "application/json")
 	err = json.NewEncoder(w).Encode(result)
 	if err != nil {
 		log.Printf("error encoding result: %s\n", err)
